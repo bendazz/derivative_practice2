@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derivative Practice Sheet</title>
+        <!-- MathJax config: enable $...$ for inline math -->
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                },
+                svg: { fontCache: 'global' }
+            };
+        </script>
+        <!-- MathJax for LaTeX rendering -->
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .question {
+            margin-bottom: 32px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #eee;
+        }
+        .answer {
+            margin-top: 10px;
+            color: #2a7a2a;
+            font-size: 1.1em;
+        }
+        .latex {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Derivative Practice Sheet</h1>
+        <div id="questions"></div>
+    </div>
+    <script>
+        // Array of questions and answers (LaTeX)
+        const questions = [
+            {
+                q: "Find the derivative of $f(x) = 3x^5 - 7x^3 + 2x - 8$.",
+                a: "$f'(x) = 15x^4 - 21x^2 + 2$"
+            },
+            {
+                q: "Find the derivative of $g(x) = \\frac{2x^3 - 5x + 1}{x^2 + 1}$.",
+                a: "$g'(x) = \\frac{(6x^2 - 5)(x^2 + 1) - (2x^3 - 5x + 1)2x}{(x^2 + 1)^2}$"
+            },
+            {
+                q: "Find the derivative of $h(x) = e^{2x} \\sin(x)$.",
+                a: "$h'(x) = 2e^{2x} \\sin(x) + e^{2x} \\cos(x)$"
+            },
+            {
+                q: "Find the derivative of $k(x) = \\ln(x^2 + 4)$.",
+                a: "$k'(x) = \\frac{2x}{x^2 + 4}$"
+            },
+            {
+                q: "Find the derivative of $m(x) = \\arctan(3x)$.",
+                a: "$m'(x) = \\frac{3}{1 + 9x^2}$"
+            },
+            {
+                q: "Find the derivative of $n(x) = x^2 e^{x}$ at $x = 0$.",
+                a: "$n'(x) = 2x e^x + x^2 e^x$, so $n'(0) = 0$"
+            },
+            {
+                q: "Find the derivative of $p(x) = \\sin(x) \\cos(x)$.",
+                a: "$p'(x) = \\cos^2(x) - \\sin^2(x)$"
+            },
+            {
+                q: "Find the derivative of $q(x) = \\frac{\\ln(x)}{x}$.",
+                a: "$q'(x) = \\frac{1 - \\ln(x)}{x^2}$"
+            },
+            {
+                q: "Find the derivative of $r(x) = \\arcsin(x^2)$.",
+                a: "$r'(x) = \\frac{2x}{\\sqrt{1 - x^4}}$"
+            },
+            {
+                q: "Find the derivative of $s(x) = \\frac{e^x}{\\tan(x)}$ at $x = \\frac{\\pi}{4}$.",
+                a: "$s'(x) = \\frac{e^x \\tan(x) - e^x \\sec^2(x)}{\\tan^2(x)}$, so $s'(\\frac{\\pi}{4}) = e^{\\pi/4}(1 - 2)$"
+            }
+        ];
+
+        function renderQuestionsAndMath() {
+            const questionsDiv = document.getElementById('questions');
+            questions.forEach((item, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question';
+                qDiv.innerHTML = `
+                    <div class="latex"><b>Question ${idx + 1}:</b> ${item.q}</div>
+                    <div class="answer latex"><b>Answer:</b> ${item.a}</div>
+                `;
+                questionsDiv.appendChild(qDiv);
+            });
+            // Wait for MathJax to be ready, then typeset
+            if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
+                MathJax.startup.promise.then(() => {
+                    MathJax.typesetPromise();
+                });
+            } else if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        // Wait for MathJax to load before rendering
+        if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
+            MathJax.startup.promise.then(renderQuestionsAndMath);
+        } else {
+            window.addEventListener('DOMContentLoaded', renderQuestionsAndMath);
+        }
+    </script>
+</body>
+</html>
